@@ -1,0 +1,24 @@
+version: '3.2'
+
+services:
+  dmit_portainer:
+    image: portainer/portainer-ce:2.11.0
+    container_name: dmit_portainer
+    ports:
+      - "9000:9000"
+      #- "9443:9443"
+      - "8000:8000"
+    volumes:
+      - ./volumes/portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    networks:
+      - dmit_network
+      - portainer
+
+networks:
+  portainer:
+    name: portainer
+    driver: bridge
+  dmit_network:
+    external: true
